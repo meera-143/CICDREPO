@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install Apache') {
+            steps {
+                    sh '''
+                    sudo apt install apache2
+                    '''
+                
+            }
+        }
+        stage('copying index.html file to apache2') {
+            steps {
+                    sh '''
+                    sudo rm -rf CICDREPO
+                    git clone -b main https://github.com/meera-143/CICDREPO.git
+                    sudo cp index.html /var/www/html/
+                    '''
+            }
+        }
+    }     
+}
